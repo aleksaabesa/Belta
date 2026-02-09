@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>PayloadContent</key>
+    <array>
+        <dict>
+            <key>Icon</key>
+            <data>---აქ_უნდა_იყოს_ლოგოს_სურათის_კოდი---</data>
+            <key>Label</key>
+            <string>Delta Roblox</string>
+            <key>URL</key>
+            <string>https://შენი-საიტი.com/download</string>
+            <key>PayloadType</key>
+            <string>com.apple.webClip.managed</string>
+        </dict>
+    </array>
+    <key>PayloadDisplayName</key>
+    <string>Delta Installer</string>
+    <key>PayloadIdentifier</key>
+    <string>com.delta.install</string>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadUUID</key>
+    <string>12345-67890-ABCDE</string>
+</dict>
+</plist>
