@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Belta | Executor</title>
+    <style>
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #0a0a0a; font-family: sans-serif; }
+        
+        /* ჩამოტვირთვის მენიუ */
+        #download-ui {
+            position: fixed; inset: 0; background: #050505;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 100; color: white;
+        }
+        .logo { font-size: 4rem; font-weight: bold; color: #00d2ff; text-shadow: 0 0 20px #00d2ff; margin-bottom: 30px; }
+        .btn {
+            width: 280px; padding: 18px; margin: 10px; border-radius: 12px;
+            text-align: center; text-decoration: none; font-weight: bold; font-size: 1.1rem;
+            transition: 0.3s; cursor: pointer; border: none;
+        }
+        .ios { background: white; color: black; }
+        .android { background: #3DDC84; color: black; }
+        .play-web { background: transparent; color: #555; font-size: 0.9rem; margin-top: 20px; }
+
+        /* თამაშის Canvas */
+        canvas { display: none; background: #70c5ce; }
+        #score { position: fixed; top: 40px; width: 100%; text-align: center; color: white; font-size: 40px; display: none; z-index: 10; }
+    </style>
+</head>
+<body>
+
+<div id="download-ui">
+    <div class="logo">BELTA</div>
+    <a href="./belta.mobileconfig" class="btn ios"> INSTALL iOS PROFILE</a>
+    <a href="./belta.apk" class="btn android">🤖 DOWNLOAD ANDROID APK</a>
+    <button class="play-web" onclick="startBeltaBird()">Continue to Web App</button>
+</div>
+
+<div id="score">0</div>
+<canvas id="gameCanvas"></canvas>
+
+<script>
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+const ui = document.getElementById('download-ui');
+const scoreDisplay = document.getElementById('score');
+
+// შემოწმება: თუ აპლიკაცია გახსნილია Home Screen-იდან (პროფილით)
+if (window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches) {
+    startBeltaBird();
+}
+
+function startBeltaBird() {
+    ui.style.display = 'none';
+    canvas.style.display = 'block';
+    scoreDisplay.style.display = 'block';
+    initGame();
+}
+
+// --- Flappy Belta Game Logic ---
+function initGame() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    let bird = { x: 50, y: canvas.height/2, w: 35, h: 25, v: 0, g: 0.5 };
+    let pipes = [];
+    let score = 0;
+    let active = true;
+
+    function draw() {
+        ctx.fillStyle = "#70c5ce"; ctx.fillRect(0,0,canvas.width, canvas.height);
+        ctx.fillStyle = "#f7d308"; ctx.fillRect(bird.x, bird.y, bird.w, bird.h);
+        ctx.fillStyle = "#75b855";
+        pipes.forEach(p => {
+            ctx.fillRect(p.x, 0, 50, p.t);
+            ctx.fillRect(p.x, canvas.height - p.b, 50, p.b);
+            p.x -= 3;
+        });
+        if(active) requestAnimationFrame(update);
+    }
+
+    function update() {
+        bird.v += bird.g; bird.y += bird.v;
+        if(pipes.length === 0 || pipes[pipes.length-1].x < canvas.width - 200) {
+            let t = Math.random() * (canvas.height/2);
+            pipes.push({x: canvas.width, t: t, b: canvas.height - t - 160});
+        }
+        if(pipes[0] && pipes[0].x < -50) { pipes.shift(); score++; scoreDisplay.innerText = score; }
+        if(bird.y > canvas.height || bird.y < 0) location.reload();
+        draw();
+    }
+    
+    window.addEventListener('touchstart', () => bird.v = -8);
+    draw();
+}
+</script>
+</body>
+</html>
