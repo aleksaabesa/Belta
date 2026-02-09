@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belta Executor</title>
+    <style>
+        body {
+            margin: 0; padding: 0;
+            background: #050505;
+            color: white;
+            font-family: sans-serif;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            height: 100vh;
+        }
+
+        .logo {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #00bfff;
+            text-shadow: 0 0 20px rgba(0, 191, 255, 0.5);
+            margin-bottom: 5px;
+        }
+
+        .status { color: #00ff88; font-size: 0.9rem; margin-bottom: 30px; }
+
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 280px;
+        }
+
+        .download-btn {
+            padding: 18px;
+            border: none;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: 0.3s;
+        }
+
+        /* iOS სტილი */
+        .ios { background: #ffffff; color: #000000; }
+        /* Android სტილი */
+        .android { background: #3DDC84; color: #000000; }
+
+        .download-btn:hover { transform: scale(1.05); }
+    </style>
+</head>
+<body>
+
+    <div class="logo">BELTA</div>
+    <div class="status">● Status: Operational</div>
+
+    <div class="btn-container">
+        <a href="./belta.mobileconfig" class="download-btn ios">
+             Install iOS Profile
+        </a>
+
+        <a href="./belta.apk" class="download-btn android">
+            🤖 Download Android APK
+        </a>
+    </div>
+
+    <p style="margin-top: 40px; color: #444; font-size: 0.8rem;">V2.6.4 (Belta Project)</p>
+
+</body>
+</html>
